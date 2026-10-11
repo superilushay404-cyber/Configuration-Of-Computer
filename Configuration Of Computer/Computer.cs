@@ -2,15 +2,15 @@
 {
     internal class Computer
     {
-        public Processor Processor { get; set; } = new Processor();
+        public Processor Processor { get; set; }
 
-        public Ram Ram { get; set; } = new Ram();
+        public Ram Ram { get; set; }
 
-        public Motherboard NaMotherboardme { get; set; } = new Motherboard();
+        public Motherboard NaMotherboardme { get; set; }
 
-        public GraphicsCard GraphicsCard { get; set; } = new GraphicsCard();
+        public GraphicsCard GraphicsCard { get; set; }
 
-        public PowerSupply PowerSupply { get; set; } = new PowerSupply();
+        public PowerSupply PowerSupply { get; set; }
 
 
     }
