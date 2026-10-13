@@ -265,6 +265,48 @@ namespace Configuration_Of_Computer
                             Console.WriteLine(" None");
                         }
                     }
+                    else if (userInput == 4)
+                    {
+                        Console.WriteLine("Enter 1 to remove motherboard, 2 ram, 3 processor, 4 graphics card or 5 to remove power supply");
+                        bool isUserChoiceParseSuccess = int.TryParse(Console.ReadLine(), out int userChoice);
+
+                        if (isUserChoiceParseSuccess)
+                        {
+                            if (userChoice == 1)
+                            {
+                                computers[0].Motherboard = null;
+                                Console.WriteLine("Success");
+                            }
+                            else if (userChoice == 2)
+                            {
+                                computers[0].Ram = null;
+                                Console.WriteLine("Success");
+                            }
+                            else if (userChoice == 3)
+                            {
+                                computers[0].Processor = null;
+                                Console.WriteLine("Success");
+                            }
+                            else if (userChoice == 4)
+                            {
+                                computers[0].GraphicsCard = null;
+                                Console.WriteLine("Success");
+                            }
+                            else if (userChoice == 5)
+                            {
+                                computers[0].PowerSupply = null;
+                                Console.WriteLine("Success");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Wrong input");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Wrong input");
+                        }
+                    }
                     else
                     {
                         Console.WriteLine("Wrong input");
@@ -302,8 +344,9 @@ namespace Configuration_Of_Computer
         static void PrintInfo()
         {
             Console.WriteLine("Enter 1 to see catalog of motherboards, rams, processors, graphicsCards and powerSupplies");
-            Console.WriteLine("Enter 2 to choose components for building your own pc");
+            Console.WriteLine("Enter 2 to choose or change components for building your own pc");
             Console.WriteLine("Enter 3 to see current components of pc");
+            Console.WriteLine("Enter 4 to remove components of pc");
         }
 
         static Motherboard GetMotherboardById(List<Motherboard> motherboards, int id)
