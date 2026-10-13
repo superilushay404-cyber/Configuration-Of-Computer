@@ -34,35 +34,35 @@ namespace Configuration_Of_Computer
                             {
                                 for (int i = 0; i < motherboards.Count; i++)
                                 {
-                                    Console.WriteLine($"Motherboard: {motherboards[i].Name} {motherboards[i].Model} {motherboards[i].Id}");
+                                    Console.WriteLine($"Motherboard: {motherboards[i].Name} {motherboards[i].Model} {motherboards[i].Id} {motherboards[i].PowerConsumption}");
                                 }
                             }
                             else if (userChoice == 2)
                             {
                                 for (int i = 0; i < rams.Count; i++)
                                 {
-                                    Console.WriteLine($"Ram: {rams[i].Name} {rams[i].Model} {rams[i].Id}");
+                                    Console.WriteLine($"Ram: {rams[i].Name} {rams[i].Model} {rams[i].Id} {rams[i].PowerConsumption}");
                                 }
                             }
                             else if (userChoice == 3)
                             {
                                 for (int i = 0; i < processors.Count; i++)
                                 {
-                                    Console.WriteLine($"Processor: {processors[i].Name} {processors[i].Model} {processors[i].Id}");
+                                    Console.WriteLine($"Processor: {processors[i].Name} {processors[i].Model} {processors[i].Id} {processors[i].PowerConsumption}");
                                 }
                             }
                             else if (userChoice == 4)
                             {
                                 for (int i = 0; i < graphicsCards.Count; i++)
                                 {
-                                    Console.WriteLine($"Graphics card: {graphicsCards[i].Name} {graphicsCards[i].Model} {graphicsCards[i].Id}");
+                                    Console.WriteLine($"Graphics card: {graphicsCards[i].Name} {graphicsCards[i].Model} {graphicsCards[i].Id} {graphicsCards[i].PowerConsumption}");
                                 }
                             }
                             else if (userChoice == 5)
                             {
                                 for (int i = 0; i < powerSupplies.Count; i++)
                                 {
-                                    Console.WriteLine($"Power supplie: {powerSupplies[i].Name} {powerSupplies[i].Model} {powerSupplies[i].Id}");
+                                    Console.WriteLine($"Power supplie: {powerSupplies[i].Name} {powerSupplies[i].Model} {powerSupplies[i].Id} {powerSupplies[i].LimitOfPower}");
                                 }
                             }
                             else
@@ -343,6 +343,27 @@ namespace Configuration_Of_Computer
                             Console.WriteLine("There is no motherboard or ram yet");
                         }
                     }
+                    else if (userInput == 7)
+                    {
+                        if (computers[0].Ram != null && computers[0].GraphicsCard != null && computers[0].Motherboard != null && computers[0].Processor != null && computers[0].PowerSupply != null)
+                        {
+                            float totalPowerConsumption = computers[0].Ram.PowerConsumption + computers[0].GraphicsCard.PowerConsumption + computers[0].Motherboard.PowerConsumption + computers[0].Processor.PowerConsumption;
+                            float neededLeftPower = computers[0].PowerSupply.LimitOfPower / 5;
+
+                            if (neededLeftPower >= totalPowerConsumption - computers[0].PowerSupply.LimitOfPower)
+                            {
+                                Console.WriteLine("The power supply can provide needed power");
+                            }
+                            else if (neededLeftPower < totalPowerConsumption - computers[0].PowerSupply.LimitOfPower)
+                            {
+                                Console.WriteLine("The power supply cannot provide needed power");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Something is missing (you need all components)");
+                        }
+                    }
                     else if (userInput == 8)
                     {
                         int totalPrice = 0;
@@ -391,21 +412,21 @@ namespace Configuration_Of_Computer
             List<PowerSupply> powerSupplies)
         {
             computers.Add(new Computer(0));
-            motherboards.Add(new Motherboard("Asus", "ROG STRIX B550-F GAMING", 500, 1));
-            motherboards.Add(new Motherboard("MSI", "B450 TOMAHAWK MAX", 450, 2));
-            motherboards.Add(new Motherboard("Gigabyte", "Z390 AORUS PRO WIFI", 500, 3));
-            rams.Add(new Ram("Corsair", "Vengeance LPX 16GB (2 x 8GB) DDR4-3200", 650, 1));
-            rams.Add(new Ram("G.Skill", "Trident Z RGB 16GB (2 x 8GB) DDR4-3600", 715, 2));
-            rams.Add(new Ram("Kingston", "HyperX Fury 16GB (2 x 8GB) DDR4-2666", 800, 3));
-            processors.Add(new Processor("Intel", "Core i7-9700K", 250, 1));
-            processors.Add(new Processor("AMD", "Ryzen 5 3600X", 100, 2));
-            processors.Add(new Processor("Intel", "Core i9-10900K", 750, 3));
-            graphicsCards.Add(new GraphicsCard("NVIDIA", "GeForce RTX 3080", 600, 1));
-            graphicsCards.Add(new GraphicsCard("AMD", "Radeon RX 6800 XT", 750, 2));
-            graphicsCards.Add(new GraphicsCard("NVIDIA", "GeForce GTX 1660 Super", 700, 3));
-            powerSupplies.Add(new PowerSupply("Corsair", "RM850x 850W 80+ Gold", 700, 1));
-            powerSupplies.Add(new PowerSupply("EVGA", "SuperNOVA 750 G5 750W 80+ Gold", 500, 2));
-            powerSupplies.Add(new PowerSupply("Seasonic", "Focus GX-650 650W 80+ Gold", 400, 3));
+            motherboards.Add(new Motherboard("Asus", "ROG STRIX B550-F GAMING", 500, 1, 5));
+            motherboards.Add(new Motherboard("MSI", "B450 TOMAHAWK MAX", 450, 2, 5));
+            motherboards.Add(new Motherboard("Gigabyte", "Z390 AORUS PRO WIFI", 500, 3, 10));
+            rams.Add(new Ram("Corsair", "Vengeance LPX 16GB (2 x 8GB) DDR4-3200", 650, 1, 5));
+            rams.Add(new Ram("G.Skill", "Trident Z RGB 16GB (2 x 8GB) DDR4-3600", 715, 2, 4));
+            rams.Add(new Ram("Kingston", "HyperX Fury 16GB (2 x 8GB) DDR4-2666", 800, 3, 3));
+            processors.Add(new Processor("Intel", "Core i7-9700K", 250, 1, 10));
+            processors.Add(new Processor("AMD", "Ryzen 5 3600X", 100, 2, 15));
+            processors.Add(new Processor("Intel", "Core i9-10900K", 750, 3, 5));
+            graphicsCards.Add(new GraphicsCard("NVIDIA", "GeForce RTX 3080", 600, 1, 10));
+            graphicsCards.Add(new GraphicsCard("AMD", "Radeon RX 6800 XT", 750, 2, 10));
+            graphicsCards.Add(new GraphicsCard("NVIDIA", "GeForce GTX 1660 Super", 700, 3, 15));
+            powerSupplies.Add(new PowerSupply("Corsair", "RM850x 850W 80+ Gold", 700, 1, 50));
+            powerSupplies.Add(new PowerSupply("EVGA", "SuperNOVA 750 G5 750W 80+ Gold", 500, 2, 25));
+            powerSupplies.Add(new PowerSupply("Seasonic", "Focus GX-650 650W 80+ Gold", 400, 3, 20));
         }
 
         static void PrintInfo()
@@ -416,6 +437,7 @@ namespace Configuration_Of_Computer
             Console.WriteLine("Enter 4 to remove components of pc");
             Console.WriteLine("Enter 5 to check socket compatibility of processor and motherboard");
             Console.WriteLine("Enter 6 to check the compatibility of the ram with the motherboard");
+            Console.WriteLine("Enter 7 to check if power supply can provide needed power");
             Console.WriteLine("Enter 8 to see whole price of all components");
         }
 
