@@ -343,6 +343,37 @@ namespace Configuration_Of_Computer
                             Console.WriteLine("There is no motherboard or ram yet");
                         }
                     }
+                    else if (userInput == 8)
+                    {
+                        int totalPrice = 0;
+
+                        if (computers[0].Motherboard != null)
+                        {
+                            totalPrice += computers[0].Motherboard.Price;
+                        }
+
+                        if (computers[0].Ram != null)
+                        {
+                            totalPrice += computers[0].Ram.Price;
+                        }
+
+                        if (computers[0].Processor != null)
+                        {
+                            totalPrice += computers[0].Processor.Price;
+                        }
+
+                        if (computers[0].GraphicsCard != null)
+                        {
+                            totalPrice += computers[0].GraphicsCard.Price;
+                        }
+
+                        if (computers[0].PowerSupply != null)
+                        {
+                            totalPrice += computers[0].PowerSupply.Price;
+                        }
+
+                        Console.WriteLine($"Total price of all components: {totalPrice}");
+                    }
                     else
                     {
                         Console.WriteLine("Wrong input");
@@ -385,6 +416,7 @@ namespace Configuration_Of_Computer
             Console.WriteLine("Enter 4 to remove components of pc");
             Console.WriteLine("Enter 5 to check socket compatibility of processor and motherboard");
             Console.WriteLine("Enter 6 to check the compatibility of the ram with the motherboard");
+            Console.WriteLine("Enter 8 to see whole price of all components");
         }
 
         static Motherboard GetMotherboardById(List<Motherboard> motherboards, int id)
