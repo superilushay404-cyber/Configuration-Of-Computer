@@ -73,6 +73,139 @@
                             Console.WriteLine("Wrong input");
                         }
                     }
+                    else if (userInput == 2)
+                    {
+                        Console.WriteLine("Enter 1 to choose motherboard, 2 ram, 3 processor, 4 graphics card or 5 to choose power supply");
+                        bool isUserChoiceParseSuccess = int.TryParse(Console.ReadLine(), out int userChoice);
+
+                        if (isUserChoiceParseSuccess)
+                        {
+                            if (userChoice == 1)
+                            {
+                                Console.WriteLine("Enter the id of the motherboard");
+                                bool isUserIdParseSuccess = int.TryParse(Console.ReadLine(), out int userId);
+
+                                if (isUserIdParseSuccess)
+                                {
+                                    Motherboard findedMotherboard = GetMotherboardById(motherboards, userId);
+
+                                    if (findedMotherboard != null)
+                                    {
+                                        computers[0].Motherboard = findedMotherboard;
+                                        Console.WriteLine("Success");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Wrong input");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Wrong input");
+                                }
+                            }
+                            else if (userChoice == 2)
+                            {
+                                Console.WriteLine("Enter the id of the ram");
+                                bool isUserIdParseSuccess = int.TryParse(Console.ReadLine(), out int userId);
+
+                                if (isUserIdParseSuccess)
+                                {
+                                    Ram findedRam = GetRamById(rams, userId);
+
+                                    if (findedRam != null)
+                                    {
+                                        computers[0].Ram = findedRam;
+                                        Console.WriteLine("Success");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Wrong input");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Wrong input");
+                                }
+                            }
+                            else if (userChoice == 3)
+                            {
+                                Console.WriteLine("Enter the id of the processor");
+                                bool isUserIdParseSuccess = int.TryParse(Console.ReadLine(), out int userId);
+
+                                if (isUserIdParseSuccess)
+                                {
+                                    Processor findedProcessor = GetProcessorById(processors, userId);
+
+                                    if (findedProcessor != null)
+                                    {
+                                        computers[0].Processor = findedProcessor;
+                                        Console.WriteLine("Success");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Wrong input");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Wrong input");
+                                }
+                            }
+                            else if (userChoice == 4)
+                            {
+                                Console.WriteLine("Enter the id of the graphic card");
+                                bool isUserIdParseSuccess = int.TryParse(Console.ReadLine(), out int userId);
+
+                                if (isUserIdParseSuccess)
+                                {
+                                    GraphicsCard findedGraphicsCard = GetGraphicsCardById(graphicsCards, userId);
+
+                                    if (findedGraphicsCard != null)
+                                    {
+                                        computers[0].GraphicsCard = findedGraphicsCard;
+                                        Console.WriteLine("Success");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Wrong input");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Wrong input");
+                                }
+                            }
+                            else if (userChoice == 5)
+                            {
+                                Console.WriteLine("Enter the id of the power supply");
+                                bool isUserIdParseSuccess = int.TryParse(Console.ReadLine(), out int userId);
+
+                                if (isUserIdParseSuccess)
+                                {
+                                    PowerSupply findedPowerSupply = GetPowerSupplyById(powerSupplies, userId);
+
+                                    if (findedPowerSupply != null)
+                                    {
+                                        computers[0].PowerSupply = findedPowerSupply;
+                                        Console.WriteLine("Success");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Wrong input");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Wrong input");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Wrong input");
+                        }
+                    }
                     else
                     {
                         Console.WriteLine("Wrong input");
