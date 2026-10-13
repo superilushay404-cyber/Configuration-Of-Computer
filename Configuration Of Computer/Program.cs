@@ -1,4 +1,6 @@
-﻿namespace Configuration_Of_Computer
+﻿using System;
+
+namespace Configuration_Of_Computer
 {
     internal class Program
     {
@@ -206,6 +208,63 @@
                             Console.WriteLine("Wrong input");
                         }
                     }
+                    else if (userInput == 3)
+                    {
+                        Console.Write($"Motherboard:");
+
+                        if (computers[0].Motherboard != null)
+                        {
+                            Console.WriteLine($" {computers[0].Motherboard.Name} {computers[0].Motherboard.Model} {computers[0].Motherboard.Id}");
+                        }
+                        else
+                        {
+                            Console.WriteLine(" None");
+                        }
+
+                        Console.Write($"Ram:");
+
+                        if (computers[0].Ram != null)
+                        {
+                            Console.WriteLine($" {computers[0].Ram.Name} {computers[0].Ram.Model} {computers[0].Ram.Id}");
+                        }
+                        else
+                        {
+                            Console.WriteLine(" None");
+                        }
+
+                        Console.Write($"Processor:");
+
+                        if (computers[0].Processor != null)
+                        {
+                            Console.WriteLine($"Processor: {computers[0].Processor.Name} {computers[0].Processor.Model} {computers[0].Processor.Id}");
+                        }
+                        else
+                        {
+                            Console.WriteLine(" None");
+                        }
+
+                        Console.Write($"Graphics card:");
+
+                        if (computers[0].GraphicsCard != null)
+                        {
+                            Console.WriteLine($"Graphics card: {computers[0].GraphicsCard.Name} {computers[0].GraphicsCard.Model} {computers[0].GraphicsCard.Id}");
+                        }
+                        else
+                        {
+                            Console.WriteLine(" None");
+                        }
+
+                        Console.Write($"Power supply:");
+
+                        if (computers[0].PowerSupply != null)
+                        {
+                            Console.WriteLine($"Power supply: {computers[0].PowerSupply.Name} {computers[0].PowerSupply.Model} {computers[0].PowerSupply.Id}");
+                        }
+                        else
+                        {
+                            Console.WriteLine(" None");
+                        }
+                    }
                     else
                     {
                         Console.WriteLine("Wrong input");
@@ -244,6 +303,7 @@
         {
             Console.WriteLine("Enter 1 to see catalog of motherboards, rams, processors, graphicsCards and powerSupplies");
             Console.WriteLine("Enter 2 to choose components for building your own pc");
+            Console.WriteLine("Enter 3 to see current components of pc");
         }
 
         static Motherboard GetMotherboardById(List<Motherboard> motherboards, int id)
