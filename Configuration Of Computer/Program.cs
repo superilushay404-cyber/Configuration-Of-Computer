@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace Configuration_Of_Computer
 {
@@ -395,6 +396,57 @@ namespace Configuration_Of_Computer
 
                         Console.WriteLine($"Total price of all components: {totalPrice}");
                     }
+                    else if (userInput == 9)
+                    {
+                        if (computers[0].Ram != null || computers[0].GraphicsCard != null || computers[0].Motherboard != null || computers[0].Processor != null || computers[0].PowerSupply != null)
+                        {
+                            Console.WriteLine("Enter budget");
+                            bool isUserBudgetParseSuccess = int.TryParse(Console.ReadLine(), out int userBudget);
+
+                            if (isUserBudgetParseSuccess)
+                            {
+                                int totalAmountOfComponents = 0;
+
+                                if (computers[0].Motherboard != null)
+                                {
+                                    totalAmountOfComponents += computers[0].Motherboard.Price;
+                                }
+
+                                if (computers[0].Ram != null)
+                                {
+                                    totalAmountOfComponents += computers[0].Ram.Price;
+                                }
+
+                                if (computers[0].Processor != null)
+                                {
+                                    totalAmountOfComponents += computers[0].Processor.Price;
+                                }
+
+                                if (computers[0].GraphicsCard != null)
+                                {
+                                    totalAmountOfComponents += computers[0].GraphicsCard.Price;
+                                }
+
+                                if (computers[0].PowerSupply != null)
+                                {
+                                    totalAmountOfComponents += computers[0].PowerSupply.Price;
+                                }
+
+                                if (userBudget >= totalAmountOfComponents)
+                                {
+                                    Console.WriteLine($"You have enough budget. Left budget: {userBudget - totalAmountOfComponents}");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"You don't have enough budget. You need: {totalAmountOfComponents - userBudget} more");
+                                }
+                            }
+                        }
+                        else 
+                        {
+                            Console.WriteLine("There is no components yet");
+                        }
+                    }
                     else
                     {
                         Console.WriteLine("Wrong input");
@@ -439,6 +491,7 @@ namespace Configuration_Of_Computer
             Console.WriteLine("Enter 6 to check the compatibility of the ram with the motherboard");
             Console.WriteLine("Enter 7 to check if power supply can provide needed power");
             Console.WriteLine("Enter 8 to see whole price of all components");
+            Console.WriteLine("Enter 9 to check amount of all components and avaivable budget");
         }
 
         static Motherboard GetMotherboardById(List<Motherboard> motherboards, int id)
