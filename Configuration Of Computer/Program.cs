@@ -325,6 +325,24 @@ namespace Configuration_Of_Computer
                             Console.WriteLine("There is no motherboard or processor yet");
                         }
                     }
+                    else if (userInput == 6)
+                    {
+                        if (computers[0].Ram != null && computers[0].Motherboard != null)
+                        {
+                            if (computers[0].Ram.Id == computers[0].Motherboard.Id)
+                            {
+                                Console.WriteLine("The ram and motherboard are compatible");
+                            }
+                            else
+                            {
+                                Console.WriteLine("The ram and motherboard are not compatible");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("There is no motherboard or ram yet");
+                        }
+                    }
                     else
                     {
                         Console.WriteLine("Wrong input");
@@ -366,6 +384,7 @@ namespace Configuration_Of_Computer
             Console.WriteLine("Enter 3 to see current components of pc");
             Console.WriteLine("Enter 4 to remove components of pc");
             Console.WriteLine("Enter 5 to check socket compatibility of processor and motherboard");
+            Console.WriteLine("Enter 6 to check the compatibility of the ram with the motherboard");
         }
 
         static Motherboard GetMotherboardById(List<Motherboard> motherboards, int id)
