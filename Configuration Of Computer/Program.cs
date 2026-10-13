@@ -236,7 +236,7 @@ namespace Configuration_Of_Computer
 
                         if (computers[0].Processor != null)
                         {
-                            Console.WriteLine($"Processor: {computers[0].Processor.Name} {computers[0].Processor.Model} {computers[0].Processor.Id}");
+                            Console.WriteLine($" Processor: {computers[0].Processor.Name} {computers[0].Processor.Model} {computers[0].Processor.Id}");
                         }
                         else
                         {
@@ -247,7 +247,7 @@ namespace Configuration_Of_Computer
 
                         if (computers[0].GraphicsCard != null)
                         {
-                            Console.WriteLine($"Graphics card: {computers[0].GraphicsCard.Name} {computers[0].GraphicsCard.Model} {computers[0].GraphicsCard.Id}");
+                            Console.WriteLine($" Graphics card: {computers[0].GraphicsCard.Name} {computers[0].GraphicsCard.Model} {computers[0].GraphicsCard.Id}");
                         }
                         else
                         {
@@ -258,7 +258,7 @@ namespace Configuration_Of_Computer
 
                         if (computers[0].PowerSupply != null)
                         {
-                            Console.WriteLine($"Power supply: {computers[0].PowerSupply.Name} {computers[0].PowerSupply.Model} {computers[0].PowerSupply.Id}");
+                            Console.WriteLine($" Power supply: {computers[0].PowerSupply.Name} {computers[0].PowerSupply.Model} {computers[0].PowerSupply.Id}");
                         }
                         else
                         {
@@ -307,6 +307,24 @@ namespace Configuration_Of_Computer
                             Console.WriteLine("Wrong input");
                         }
                     }
+                    else if (userInput == 5)
+                    {
+                        if (computers[0].Processor != null && computers[0].Motherboard != null)
+                        {
+                            if (computers[0].Processor.Id == computers[0].Motherboard.Id)
+                            {
+                                Console.WriteLine("The processor and motherboard are compatible");
+                            }
+                            else
+                            {
+                                Console.WriteLine("The processor and motherboard are not compatible");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("There is no motherboard or processor yet");
+                        }
+                    }
                     else
                     {
                         Console.WriteLine("Wrong input");
@@ -347,6 +365,7 @@ namespace Configuration_Of_Computer
             Console.WriteLine("Enter 2 to choose or change components for building your own pc");
             Console.WriteLine("Enter 3 to see current components of pc");
             Console.WriteLine("Enter 4 to remove components of pc");
+            Console.WriteLine("Enter 5 to check socket compatibility of processor and motherboard");
         }
 
         static Motherboard GetMotherboardById(List<Motherboard> motherboards, int id)
