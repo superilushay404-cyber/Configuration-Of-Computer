@@ -464,6 +464,41 @@ namespace Configuration_Of_Computer
                             }
                         }
                     }
+                    else if (userInput == 11)
+                    {
+                        if (computers[0].Motherboard != null && computers[0].Ram != null && computers[0].Processor != null && computers[0].GraphicsCard != null && computers[0].PowerSupply != null)
+                        {
+                            int highestId = 0;
+
+                            foreach (var computer in computers)
+                            {
+                                if (computer.Id > highestId)
+                                {
+                                    highestId = computer.Id;
+                                }
+                            }
+
+                            Computer newComputer = new Computer(highestId + 1)
+                            {
+                                Motherboard = computers[0].Motherboard,
+                                Ram = computers[0].Ram,
+                                Processor = computers[0].Processor,
+                                GraphicsCard = computers[0].GraphicsCard,
+                                PowerSupply = computers[0].PowerSupply
+                            };
+
+                            computers.Add(newComputer);
+                            computers[0].Motherboard = null;
+                            computers[0].Ram = null;
+                            computers[0].Processor = null;
+                            computers[0].GraphicsCard = null;
+                            computers[0].PowerSupply = null;
+                        }
+                        else
+                        {
+                            Console.WriteLine("You need all components to save a build");
+                        }
+                    }
                     else
                     {
                         Console.WriteLine("Wrong input");
@@ -510,6 +545,7 @@ namespace Configuration_Of_Computer
             Console.WriteLine("Enter 8 to see whole price of all components");
             Console.WriteLine("Enter 9 to check amount of all components and avaivable budget");
             Console.WriteLine("Enter 10 to see list of uncompatibilities");
+            Console.WriteLine("Enter 11 to save current build of computer");
         }
 
         static Motherboard GetMotherboardById(List<Motherboard> motherboards, int id)
