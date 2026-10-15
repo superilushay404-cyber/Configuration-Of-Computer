@@ -447,6 +447,23 @@ namespace Configuration_Of_Computer
                             Console.WriteLine("There is no components yet");
                         }
                     }
+                    else if (userInput == 10)
+                    {
+                        if (computers[0].Processor != null && computers[0].Motherboard != null)
+                        {
+                            if (computers[0].Processor.Id != computers[0].Motherboard.Id)
+                            {
+                                Console.WriteLine("The processor and motherboard are not compatible");
+                            }
+                        }
+                        if (computers[0].Ram != null && computers[0].Motherboard != null)
+                        {
+                            if (computers[0].Ram.Id != computers[0].Motherboard.Id)
+                            {
+                                Console.WriteLine("The ram and motherboard are not compatible");
+                            }
+                        }
+                    }
                     else
                     {
                         Console.WriteLine("Wrong input");
@@ -467,9 +484,9 @@ namespace Configuration_Of_Computer
             motherboards.Add(new Motherboard("Asus", "ROG STRIX B550-F GAMING", 500, 1, 5));
             motherboards.Add(new Motherboard("MSI", "B450 TOMAHAWK MAX", 450, 2, 5));
             motherboards.Add(new Motherboard("Gigabyte", "Z390 AORUS PRO WIFI", 500, 3, 10));
-            rams.Add(new Ram("Corsair", "Vengeance LPX 16GB (2 x 8GB) DDR4-3200", 650, 1, 5));
-            rams.Add(new Ram("G.Skill", "Trident Z RGB 16GB (2 x 8GB) DDR4-3600", 715, 2, 4));
-            rams.Add(new Ram("Kingston", "HyperX Fury 16GB (2 x 8GB) DDR4-2666", 800, 3, 3));
+            rams.Add(new Ram("Corsair", "Vengeance LPX 16GB (2 x 8GB) DDR4-3200", 650, 1, 5, 250));
+            rams.Add(new Ram("G.Skill", "Trident Z RGB 16GB (2 x 8GB) DDR4-3600", 715, 2, 4, 300));
+            rams.Add(new Ram("Kingston", "HyperX Fury 16GB (2 x 8GB) DDR4-2666", 800, 3, 3, 350));
             processors.Add(new Processor("Intel", "Core i7-9700K", 250, 1, 10));
             processors.Add(new Processor("AMD", "Ryzen 5 3600X", 100, 2, 15));
             processors.Add(new Processor("Intel", "Core i9-10900K", 750, 3, 5));
@@ -492,6 +509,7 @@ namespace Configuration_Of_Computer
             Console.WriteLine("Enter 7 to check if power supply can provide needed power");
             Console.WriteLine("Enter 8 to see whole price of all components");
             Console.WriteLine("Enter 9 to check amount of all components and avaivable budget");
+            Console.WriteLine("Enter 10 to see list of uncompatibilities");
         }
 
         static Motherboard GetMotherboardById(List<Motherboard> motherboards, int id)
