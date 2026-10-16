@@ -499,6 +499,51 @@ namespace Configuration_Of_Computer
                             Console.WriteLine("You need all components to save a build");
                         }
                     }
+                    else if (userInput == 12)
+                    {
+                        Console.WriteLine("Enter the id of the build you want to use");
+                        bool isUserIdParseSuccess = int.TryParse(Console.ReadLine(), out int userId);
+
+                        if (isUserIdParseSuccess)
+                        {
+                            Computer findedComputer = GetComputerbyid(computers, userId);
+                            
+                            if (findedComputer != null)
+                            {
+                                Motherboard motherboard = findedComputer.Motherboard;
+                                Ram ram = findedComputer.Ram;
+                                Processor processor = findedComputer.Processor;
+                                GraphicsCard graphicsCard = findedComputer.GraphicsCard;
+                                PowerSupply powerSupply = findedComputer.PowerSupply;
+                                int id = findedComputer.Id;
+
+                                findedComputer.Motherboard = computers[0].Motherboard;
+                                findedComputer.Ram = computers[0].Ram;
+                                findedComputer.Processor = computers[0].Processor;
+                                findedComputer.GraphicsCard = computers[0].GraphicsCard;
+                                findedComputer.PowerSupply = computers[0].PowerSupply;
+
+                                computers[0].Motherboard = motherboard;
+                                computers[0].Ram = ram;
+                                computers[0].Processor = processor;
+                                computers[0].GraphicsCard = graphicsCard;
+                                computers[0].PowerSupply = powerSupply;
+
+                                findedComputer.Id = computers[0].Id;
+                                computers[0].Id = id;
+
+                                Console.WriteLine("Success");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Wrong input");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Wrong input");
+                        }
+                    }
                     else
                     {
                         Console.WriteLine("Wrong input");
@@ -546,6 +591,7 @@ namespace Configuration_Of_Computer
             Console.WriteLine("Enter 9 to check amount of all components and avaivable budget");
             Console.WriteLine("Enter 10 to see list of uncompatibilities");
             Console.WriteLine("Enter 11 to save current build of computer");
+            Console.WriteLine("Enter 12 to use other build");
         }
 
         static Motherboard GetMotherboardById(List<Motherboard> motherboards, int id)
@@ -603,6 +649,18 @@ namespace Configuration_Of_Computer
                 if (powerSupply.Id == id)
                 {
                     return powerSupply;
+                }
+            }
+            return null;
+        }
+
+        static Computer GetComputerbyid(List<Computer> computers, int id)
+        {
+            foreach (var computer in computers)
+            {
+                if (computer.Id == id)
+                {
+                    return computer;
                 }
             }
             return null;
