@@ -203,6 +203,10 @@ namespace Configuration_Of_Computer
                                     Console.WriteLine("Wrong input");
                                 }
                             }
+                            else
+                            {
+                                Console.WriteLine("Wrong input");
+                            }
                         }
                         else
                         {
@@ -349,13 +353,18 @@ namespace Configuration_Of_Computer
                         if (computers[0].Ram != null && computers[0].GraphicsCard != null && computers[0].Motherboard != null && computers[0].Processor != null && computers[0].PowerSupply != null)
                         {
                             float totalPowerConsumption = computers[0].Ram.PowerConsumption + computers[0].GraphicsCard.PowerConsumption + computers[0].Motherboard.PowerConsumption + computers[0].Processor.PowerConsumption;
-                            float neededLeftPower = computers[0].PowerSupply.LimitOfPower / 5;
+                            float neededLeftPower = totalPowerConsumption / 5;
+                            float actualLeftPower = computers[0].PowerSupply.LimitOfPower - totalPowerConsumption;
 
-                            if (neededLeftPower >= totalPowerConsumption - computers[0].PowerSupply.LimitOfPower)
+                            if (actualLeftPower >= neededLeftPower)
+                            {
+                                Console.WriteLine("The power supply can provide 20%+ of needed power");
+                            }
+                            else if (actualLeftPower >= 0)
                             {
                                 Console.WriteLine("The power supply can provide needed power");
                             }
-                            else if (neededLeftPower < totalPowerConsumption - computers[0].PowerSupply.LimitOfPower)
+                            else
                             {
                                 Console.WriteLine("The power supply cannot provide needed power");
                             }
@@ -441,6 +450,10 @@ namespace Configuration_Of_Computer
                                     Console.WriteLine($"You don't have enough budget. You need: {totalAmountOfComponents - userBudget} more");
                                 }
                             }
+                            else
+                            {
+                                Console.WriteLine("Input is not a number");
+                            }
                         }
                         else 
                         {
@@ -449,19 +462,29 @@ namespace Configuration_Of_Computer
                     }
                     else if (userInput == 10)
                     {
+                        bool isThereAnyUncompatibility = false;
+
                         if (computers[0].Processor != null && computers[0].Motherboard != null)
                         {
                             if (computers[0].Processor.Id != computers[0].Motherboard.Id)
                             {
                                 Console.WriteLine("The processor and motherboard are not compatible");
+                                isThereAnyUncompatibility = true;
                             }
                         }
+
                         if (computers[0].Ram != null && computers[0].Motherboard != null)
                         {
                             if (computers[0].Ram.Id != computers[0].Motherboard.Id)
                             {
                                 Console.WriteLine("The ram and motherboard are not compatible");
+                                isThereAnyUncompatibility = true;
                             }
+                        }
+
+                        if (isThereAnyUncompatibility == false)
+                        {
+                            Console.WriteLine("There is no uncompatibilities");
                         }
                     }
                     else if (userInput == 11)
@@ -504,7 +527,7 @@ namespace Configuration_Of_Computer
                         Console.WriteLine("Enter the id of the build you want to use");
                         bool isUserIdParseSuccess = int.TryParse(Console.ReadLine(), out int userId);
 
-                        if (isUserIdParseSuccess)
+                        if (isUserIdParseSuccess && userId != 0)
                         {
                             Computer findedComputer = GetComputerbyid(computers, userId);
                             
@@ -515,7 +538,6 @@ namespace Configuration_Of_Computer
                                 Processor processor = findedComputer.Processor;
                                 GraphicsCard graphicsCard = findedComputer.GraphicsCard;
                                 PowerSupply powerSupply = findedComputer.PowerSupply;
-                                int id = findedComputer.Id;
 
                                 findedComputer.Motherboard = computers[0].Motherboard;
                                 findedComputer.Ram = computers[0].Ram;
@@ -529,8 +551,6 @@ namespace Configuration_Of_Computer
                                 computers[0].GraphicsCard = graphicsCard;
                                 computers[0].PowerSupply = powerSupply;
 
-                                findedComputer.Id = computers[0].Id;
-                                computers[0].Id = id;
 
                                 Console.WriteLine("Success");
                             }
@@ -539,15 +559,155 @@ namespace Configuration_Of_Computer
                                 Console.WriteLine("Wrong input");
                             }
                         }
-                        else
+                        else if (!isUserIdParseSuccess)
                         {
                             Console.WriteLine("Wrong input");
                         }
+                        else if (userId == 0)
+                        {
+                            Console.WriteLine("You cant change build to same one");
+                        }
+                    }
+                    else if (userInput == 13)
+                    {
+                        Console.WriteLine("Enter the id of the first build you want to compare");
+                        bool isUserFirstIdParseSuccess = int.TryParse(Console.ReadLine(), out int userFirstId);
+
+                        if (isUserFirstIdParseSuccess)
+                        {
+                            Computer firstBuild = GetComputerbyid(computers, userFirstId);
+
+                            if (firstBuild != null)
+                            {
+                                Console.WriteLine("Enter the id of the second build you want to compare");
+                                bool isUserSecondIdParseSuccess = int.TryParse(Console.ReadLine(), out int userSecondId);
+
+                                if (isUserSecondIdParseSuccess)
+                                {
+                                    Computer secondBuild = GetComputerbyid(computers, userSecondId);
+
+                                    if (secondBuild != null)
+                                    {
+                                        int firstBuildPrice = 0;
+                                        float firstBuildPowerConsumption = 0;
+                                        int secondBuildPrice = 0;
+                                        float secondBuildPowerConsumption = 0;
+
+                                        if (firstBuild.Motherboard != null)
+                                        {
+                                            firstBuildPrice += firstBuild.Motherboard.Price;
+                                            firstBuildPowerConsumption += firstBuild.Motherboard.PowerConsumption;
+                                        }
+
+                                        if (firstBuild.Ram != null)
+                                        {
+                                            firstBuildPrice += firstBuild.Ram.Price;
+                                            firstBuildPowerConsumption += firstBuild.Ram.PowerConsumption;
+                                        }
+
+                                        if (firstBuild.Processor != null)
+                                        {
+                                            firstBuildPrice += firstBuild.Processor.Price;
+                                            firstBuildPowerConsumption += firstBuild.Processor.PowerConsumption;
+                                        }
+
+                                        if (firstBuild.GraphicsCard != null)
+                                        {
+                                            firstBuildPrice += firstBuild.GraphicsCard.Price;
+                                            firstBuildPowerConsumption += firstBuild.GraphicsCard.PowerConsumption;
+                                        }
+
+                                        if (firstBuild.PowerSupply != null)
+                                        {
+                                            firstBuildPrice += firstBuild.PowerSupply.Price;
+                                        }
+
+                                        if (secondBuild.Motherboard != null)
+                                        {
+                                            secondBuildPrice += secondBuild.Motherboard.Price;
+                                            secondBuildPowerConsumption += secondBuild.Motherboard.PowerConsumption;
+                                        }
+
+                                        if (secondBuild.Ram != null)
+                                        {
+                                            secondBuildPrice += secondBuild.Ram.Price;
+                                            secondBuildPowerConsumption += secondBuild.Ram.PowerConsumption;
+                                        }
+
+                                        if (secondBuild.Processor != null)
+                                        {
+                                            secondBuildPrice += secondBuild.Processor.Price;
+                                            secondBuildPowerConsumption += secondBuild.Processor.PowerConsumption;
+                                        }
+
+                                        if (secondBuild.GraphicsCard != null)
+                                        {
+                                            secondBuildPrice += secondBuild.GraphicsCard.Price;
+                                            secondBuildPowerConsumption += secondBuild.GraphicsCard.PowerConsumption;
+                                        }
+
+                                        if (secondBuild.PowerSupply != null)
+                                        {
+                                            secondBuildPrice += secondBuild.PowerSupply.Price;
+                                        }
+
+                                        Console.WriteLine($"First build price: {firstBuildPrice}");
+                                        Console.WriteLine($"Second build price: {secondBuildPrice}");
+                                        Console.WriteLine($"First build power consumption: {firstBuildPowerConsumption}");
+                                        Console.WriteLine($"Second build power consumption: {secondBuildPowerConsumption}");
+
+                                        if (firstBuild.Ram != null)
+                                        {
+                                            Console.WriteLine($"First build ram capacity: {firstBuild.Ram.Capacity}");
+
+                                        }
+                                        else 
+                                        {
+                                            Console.WriteLine("First build has no ram");
+                                        }
+
+                                        if (secondBuild.Ram != null)
+                                        {
+                                            Console.WriteLine($"Second build ram capacity: {secondBuild.Ram.Capacity}");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Second build has no ram");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Wrong input");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Wrong input");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Wrong input");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Input is not a number");
+                        }
+                    }
+                    else if (userInput == 0)
+                    {
+                        Console.WriteLine("Goodbye");
+                        isProgramNeedsToRun = false;
                     }
                     else
                     {
                         Console.WriteLine("Wrong input");
                     }
+                }
+                else
+                {
+                    Console.WriteLine("Wrong input");
                 }
             }
         }
@@ -592,6 +752,8 @@ namespace Configuration_Of_Computer
             Console.WriteLine("Enter 10 to see list of uncompatibilities");
             Console.WriteLine("Enter 11 to save current build of computer");
             Console.WriteLine("Enter 12 to use other build");
+            Console.WriteLine("Enter 13 to compare 2 builds");
+            Console.WriteLine("Enter 0 to stop program");
         }
 
         static Motherboard GetMotherboardById(List<Motherboard> motherboards, int id)
